@@ -41,7 +41,6 @@
 	  <h4>&nbsp;</h4>
 	  <div class="popover">
 	    <ul>
-	      {% for amenity in amenities %}
 	      <li>
 			<input type="checkbox" data-id="{{ amenity.id }}" data-name="{{ amenity.name }}" style="margin-right: 10px;">24-hour check-in
 			<input type="checkbox" data-id="{{ amenity.id }}" data-name="{{ amenity.name }}" style="margin-right: 10px;">Air-conditioning
@@ -53,7 +52,6 @@
 			<input type="checkbox" data-id="{{ amenity.id }}" data-name="{{ amenity.name }}" style="margin-right: 10px;">Dog(s)
 			<input type="checkbox" data-id="{{ amenity.id }}" data-name="{{ amenity.name }}" style="margin-right: 10px;">Doorman
 		</li>
-	      {% endfor %}
 	    </ul>
 	  </div>
 	</div>
