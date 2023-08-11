@@ -1,6 +1,6 @@
 $(document).ready(function () {
     const nameAmenity = [];
-    const maxDisplay = 3;
+    const maxDisplay = 2;
 
     $('input:checkbox').click(function () {
         if ($(this).is(":checked")) {
