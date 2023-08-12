@@ -33,7 +33,8 @@ def hbnb():
     return render_template('3-hbnb.html',
                            states=st_ct,
                            amenities=amenities,
-                           places=places)
+                           places=places,
+                           cache_id=cache_id))
 
 
 @app.teardown_appcontext
