@@ -34,7 +34,7 @@ def hbnb():
                            states=st_ct,
                            amenities=amenities,
                            places=places,
-                           cache_id=cache_id))
+                           cache_id=cache_id)
 
 
 @app.teardown_appcontext
