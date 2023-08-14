@@ -21,7 +21,7 @@ $(document).ready(function () {
     });
 
     // Request to check the status of the API
-    $.get('http://localhost:5001/api/v1/status/', function (data, textStatus, jqXHR) {
+    $.get('http://:5001/api/v1/status/', function (data, textStatus, jqXHR) {
         console.log(data);
         if (data.status === 'OK') {
             $('#api_status').addClass('available');
@@ -33,22 +33,29 @@ $(document).ready(function () {
 
 
 $.ajax({
-    type: 'POST',
-    url: 'http://0.0.0.0:5001/api/v1/places_search/',
-    data: '{}',
-    dataType: 'json',
+    type: "POST",
+    url: 'http://localhost:5001/api/v1/places_search/',
     contentType: 'application/json',
+    data: '{}',
     success: function (data) {
-        alert(data)
-        for (let i = 0; i < data.length; i++) {
-            let place = data[i];
-            $('.places').append('<article><h2>' + place.name +
-                '</h2><div class="price_by_night"><p>$' + place.price_by_night +
-                '</p></div><div class="information"><div class="max_guest"><div class="guest_image"></div><p>' +
-                place.max_guest + '</p></div><div class="number_rooms"><div class="bed_image"></div><p>' +
-                place.number_rooms + '</p></div><div class="number_bathrooms"><div class="bath_image"></div><p>' +
-                place.number_bathrooms + '</p></div></div><div class="description"><p>' +
-                place.description + '</p></div></article>');
+        $('.places').empty(); // Clear existing places
+        for (const place of data) {
+            const placeHTML = `
+            <article>
+                <div class="title_box">
+                    <h2>${place.name}</h2>
+                    <div class="price_by_night">$${place.price_by_night}</div>
+                </div>
+                <div class="information">
+                    <div class="max_guest">${place.max_guest} Guests</div>
+                    <div class="number_rooms">${place.number_rooms} Bedrooms</div>
+                    <div class="number_bathrooms">${place.number_bathrooms} Bathrooms</div>
+                </div>
+                <div class="user">
+                    <div class="description">${place.description}</div>
+                </div>
+            </article>`;
+            $('.places').append(placeHTML);
         }
     }
 });
