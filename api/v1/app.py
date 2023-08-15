@@ -40,6 +40,16 @@ app.config['SWAGGER'] = {
 Swagger(app)
 
 
+@app.route('/api/v1/amenities/', methods=['GET'])
+def get_amenities():
+    amenities_list = []
+    # Assuming `Amenity` model is in your `models` package
+    amenities = storage.all('Amenity').values()
+    for amenity in amenities:
+        amenities_list.append({"id": amenity.id, "name": amenity.name})
+    return jsonify(amenities_list)
+
+
 if __name__ == "__main__":
     """ Main Function """
     host = environ.get('HBNB_API_HOST')

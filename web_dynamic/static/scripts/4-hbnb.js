@@ -1,9 +1,26 @@
 $(document).ready(function () {
+    // Function to fetch and populate amenities
+    function loadAmenities() {
+        $.get('http://172.26.49.18:5001/api/v1/amenities/', function (data) {
+            // Empty current amenities
+            $('.amenities .popover ul').empty();
+    
+            // Loop through each amenity and append to the list
+            data.forEach(function (amenity) {
+                let listItem = `<li><input type="checkbox" data-id="${amenity.id}" data-name="${amenity.name}" style="margin-right: 20px;">${amenity.name}</li>`;
+                $('.amenities .popover ul').append(listItem);
+            });
+        });
+    }
+    
+    // Call the function to fetch and display amenities
+    loadAmenities();
+    
     const nameAmenity = [];
     const maxDisplay = 2;
 
     // Checkbox click behavior to store the amenity names
-    $('input:checkbox').click(function () {
+    $('.amenities .popover ul').on('click', 'input:checkbox', function () {
         if ($(this).is(":checked")) {
             nameAmenity.push($(this).attr('data-name'));
         } else {
@@ -48,7 +65,7 @@ $(document).ready(function () {
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
-                // Clear existing places
+                console.log(data);
                 $('.places').empty();
 
                 for (let i = 0; i < data.length; i++) {
