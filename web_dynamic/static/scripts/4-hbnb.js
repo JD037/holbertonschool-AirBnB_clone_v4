@@ -2,6 +2,7 @@ $(document).ready(function () {
     const nameAmenity = [];
     const maxDisplay = 2;
 
+    // Checkbox click behavior to store the amenity names
     $('input:checkbox').click(function () {
         if ($(this).is(":checked")) {
             nameAmenity.push($(this).attr('data-name'));
@@ -20,8 +21,8 @@ $(document).ready(function () {
         $('.amenities h4').text(displayText);
     });
 
-    // Request to check the status of the API
-    $.get('http://localhost:5500/api/v1/status/', function (data, textStatus, jqXHR) {
+    // Check the status of the API
+    $.get('http://172.26.49.18:5001/api/v1/status/', function (data, textStatus, jqXHR) {
         if (data.status === 'OK') {
             $('#api_status').addClass('available');
         } else {
@@ -29,7 +30,8 @@ $(document).ready(function () {
         }
     });
 
-    $('button').click(function () {
+    // Search button click handler
+    $('#search_button').click(function () {
         const amenityIds = [];
         $('input:checked').each(function () {
             amenityIds.push($(this).attr('data-id'));
@@ -37,10 +39,11 @@ $(document).ready(function () {
         fetchPlaces(amenityIds);
     });
 
+    // Fetch places function
     function fetchPlaces(amenityIds) {
         $.ajax({
             type: 'POST',
-            url: 'http://0.0.0.0:5001/api/v1/places_search/',
+            url: 'http://172.26.49.18:5001/api/v1/places_search/',
             data: JSON.stringify({ amenities: amenityIds }),
             dataType: 'json',
             contentType: 'application/json',
